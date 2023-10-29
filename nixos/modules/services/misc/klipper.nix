@@ -233,6 +233,17 @@ in
         message = "Option services.klipper.group is not set when services.klipper.user is specified.";
       }
       {
+        assertion =
+          cfg.settings != null
+          -> lib.foldl (a: b: a && b) true (
+            lib.mapAttrsToList (
+              mcu: _: mcu != null -> (
+                (lib.hasAttrByPath [ "${mcu}" "serial" ] cfg.settings)
+                || (lib.hasAttrByPath [ "mcu ${mcu}" "serial" ] cfg.settings))
+            ) cfg.firmwares);
+        message = "Option services.klipper.settings.$mcu.serial must be set when settings.klipper.firmware.$mcu is specified";
+      }
+      {
         assertion = (cfg.configFile != null) != (cfg.settings != null);
         message = "You need to either specify services.klipper.settings or services.klipper.configFile.";
       }
