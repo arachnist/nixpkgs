@@ -13,6 +13,7 @@
 , stm32flash
 , mcu ? "mcu"
 , firmwareConfig ? ./simulator.cfg
+, enableBossac ? false
 }: stdenv.mkDerivation rec {
   name = "klipper-firmware-${mcu}-${version}";
   version = klipper.version;
@@ -28,8 +29,7 @@
     avrdude
     stm32flash
     pkg-config
-    wxGTK32 # Required for bossac
-  ];
+  ] ++ lib.optionals enableBossac [ wxGTK32 ]; # Required for bossac, which isn't even built by default?
 
   preBuild = "cp ${firmwareConfig} ./.config";
 
@@ -48,8 +48,7 @@
   makeFlags = [
     "V=1"
     "KCONFIG_CONFIG=${firmwareConfig}"
-    "WXVERSION=3.2"
-  ];
+  ] ++ lib.optionals enableBossac [ "WXVERSION=3.2" ];
 
   installPhase = ''
     mkdir -p $out
