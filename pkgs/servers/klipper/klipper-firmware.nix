@@ -35,6 +35,14 @@
 
   postPatch = ''
     patchShebangs .
+
+    # fixes building linux-process "firmware"
+    substituteInPlace ./Makefile \
+      --replace '-Isrc' '-iquote src'
+    substituteInPlace ./src/linux/gpio.c \
+      --replace '/usr/include/linux/gpio.h' 'linux/gpio.h'
+    substituteInPlace ./src/linux/main.c \
+      --replace '/usr/include/sched.h' 'sched.h'
   '';
 
   makeFlags = [
