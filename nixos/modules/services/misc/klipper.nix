@@ -231,7 +231,7 @@ in
           })
           (lib.filterAttrs (mcu: firmware: cfg.firmwares."${mcu}".enableKlipperFlash) firmwares);
       in
-      [ klipper-genconf ] ++ firmwareFlasher ++ lib.attrValues firmwares;
+      firmwareFlasher ++ attrValues firmwares;
   };
   meta.maintainers = [
     lib.maintainers.cab404
