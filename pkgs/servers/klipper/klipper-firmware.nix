@@ -11,6 +11,7 @@
 , klipper
 , avrdude
 , stm32flash
+, removeReferencesTo
 , mcu ? "mcu"
 , firmwareConfig ? ./simulator.cfg
 , enableBossac ? false
@@ -56,6 +57,12 @@
     cp out/klipper.bin $out/ || true
     cp out/klipper.elf $out/ || true
     cp out/klipper.uf2 $out/ || true
+
+    # avoid pulling in toolchains as runtime dependencies
+    ${removeReferencesTo}/bin/remove-references-to \
+      -t ${gcc-arm-embedded} \
+      -t ${pkgsCross.avr.stdenv.cc} \
+      $out/klipper.elf
   '';
 
   dontFixup = true;
