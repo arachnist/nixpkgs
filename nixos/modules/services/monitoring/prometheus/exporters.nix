@@ -293,11 +293,6 @@ in
       options = (mkSubModules);
       imports = [
         ../../../misc/assertions.nix
-        (lib.mkRenamedOptionModule [ "unifi-poller" ] [ "unpoller" ])
-        (lib.mkRemovedOptionModule [ "minio" ] ''
-          The Minio exporter has been removed, as it was broken and unmaintained.
-          See the 24.11 release notes for more information.
-        '')
       ];
     };
     description = "Prometheus exporter configuration";
