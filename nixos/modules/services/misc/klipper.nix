@@ -119,7 +119,7 @@ in
                 type = path;
                 description = "Path to firmware config which is generated using `klipper-genconf`";
               };
-              package = lib.mkPackageOptionMD pkgs "klipper-firmware" {
+              package = lib.mkPackageOption pkgs "klipper-firmware" {
                 extraDescription = "The klipper-firmware package to use for this printer.";
               };
             };
