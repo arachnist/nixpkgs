@@ -128,7 +128,7 @@ buildStdenv.mkDerivation rec {
     rev = version;
     leaveDotGit = true;
     fetchSubmodules = true;
-    hash = "sha256-AQyvbdlp+92i59nzaPt0HmY1lsrWHc8NsjgUCVPFJKY=";
+    hash = "sha256-ysFgGu5GiNS/jutI2fRVDccThiyD64qQATRCawA42uA=";
   };
 
   firefoxVersion = (lib.importJSON "${src}/surfer.json").version.version;
