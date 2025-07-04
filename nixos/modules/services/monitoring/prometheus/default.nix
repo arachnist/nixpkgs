@@ -581,6 +581,14 @@ let
         0 means no limit. This is an experimental feature, this behaviour could
         change in the future.
       '';
+      http_headers = mkOpt (types.attrsOf (types.attrsOf (types.listOf types.str))) ''
+        Custom HTTP headers to be sent along with each scrape request.
+        Be aware that headers that are set by Prometheus itself can't be overwritten.
+      '';
+      headers = mkOpt (types.listOf types.str) ''
+        Custom HTTP headers to be sent along with each scrape request.
+        Be aware that headers that are set by Prometheus itself can't be overwritten.
+      '';
     };
   };
 
